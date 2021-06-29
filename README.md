@@ -10,4 +10,19 @@
 2. Запуск через vagrant виртуальную машину c СentOs 8 и устанавливаем Docker
 - Создаем папку CentOs_Docker   ``` mkdir CentOs_Docker ```
 - Копируем туда файлы из  ``` https://github.com/nixuser/virtlab/tree/main/docker_demo/centos ```
-- 
+- Заходим в созданную папку и запускаем ``` vagrant up ```
+- Подключаемся к нашей виртуалке 
+```
+vagrant up
+sudo su
+```
+- папка /vagrant - это общая папка с хостовой машиной
+- переходим в /vagrant и запускаем файл ``` ./setup_docker.sh```
+- Заходим на сайт ``` https://hub.docker.com/_/nginx ``` по инструкции закачиваем images ``` docker pull nginx ```
+- Запускаем контейнер и монтируем папку с нужными файлами 
+``` docker run --rm -d -p 8080:80 --name web -v /vagrant:/etc/nginx/conf.d/ nginx ```
+- Заходим внутрь контейнера и проверяем файлы
+```
+docker exec -it web /bin/bash
+ls /etc/nginx/conf.d
+```
